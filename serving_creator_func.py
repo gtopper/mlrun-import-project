@@ -9,7 +9,12 @@ def deploy_serving_functions(context, number_of_servings, number_of_models):
     
     # Create servings
     for serving_num in range(number_of_servings):
-        serving_fn = project.set_function("hub://v2_model_server", f"serving-func{str(serving_num)}", kind="serving", image="mlrun/mlrun")
+        serving_fn = project.set_function(
+            "hub://v2_model_server",
+            f"serving-func{str(serving_num)}",
+            kind="serving",
+            image="docker.io/galtopper719/mlrun:1.7.0-rc33-ml7199",
+        )
         serving_fn.apply(mlrun.auto_mount())
 
         # Add the models to the serving function's routing spec
